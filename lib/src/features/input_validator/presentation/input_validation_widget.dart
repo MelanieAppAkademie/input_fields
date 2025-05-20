@@ -12,6 +12,12 @@ class _InputValidationWidgetState extends State<InputValidationWidget> {
   TextEditingController _passwordController = TextEditingController();
 
   bool hidePassword = true;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     String email = "melli@geyer.de";
@@ -79,6 +85,13 @@ class _InputValidationWidgetState extends State<InputValidationWidget> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 }
 
