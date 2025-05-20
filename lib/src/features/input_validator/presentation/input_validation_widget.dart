@@ -8,14 +8,15 @@ class InputValidationWidget extends StatefulWidget {
 }
 
 class _InputValidationWidgetState extends State<InputValidationWidget> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
 
   bool hidePassword = true;
   @override
   Widget build(BuildContext context) {
-    String email = "melli@appakademie.com";
-    String password = "AppAkademie2025";
+    String email = "melli@geyer.de";
+    String password = "12345";
+
     return Scaffold(
       appBar: AppBar(title: Text("Input Validation")),
       body: Center(
@@ -29,17 +30,18 @@ class _InputValidationWidgetState extends State<InputValidationWidget> {
                 style: TextStyle(fontSize: 18),
               ),
               TextField(
+                keyboardType: TextInputType.emailAddress,
                 autocorrect: false,
                 controller: _emailController,
                 decoration: InputDecoration(
-                  hintText: "Email",
+                  hintText: "E-Mail",
                   border: OutlineInputBorder(),
                 ),
               ),
               TextField(
                 autocorrect: false,
                 controller: _passwordController,
-                obscureText: hidePassword,
+                obscureText: true,
                 decoration: InputDecoration(
                   suffixIcon: IconButton(
                     onPressed: () {
@@ -55,14 +57,11 @@ class _InputValidationWidgetState extends State<InputValidationWidget> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  debugPrint(_passwordController.text);
                   if (_emailController.text == email &&
                       _passwordController.text == password) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text("Login erfolgreich!"),
-                        backgroundColor: Colors.green,
-                      ),
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => NewPage()),
                     );
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -80,5 +79,14 @@ class _InputValidationWidgetState extends State<InputValidationWidget> {
         ),
       ),
     );
+  }
+}
+
+class NewPage extends StatelessWidget {
+  const NewPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(body: Center(child: Text("Hallo")));
   }
 }
